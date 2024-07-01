@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+
+<div class="row">
+    <div class="container">
+        @if (User.IsInRole(AppointmentScheduler.Utilities.Helper.Admin))
+        {
+            <div class="form-group row col-2" id="divDoctorList">
+                <label>Select Doctor</label>
+                @Html.DropDownList("doctorId",new SelectList(ViewBag.DoctorList,"Id","Name"), new {@class="form-control"})
+            </div>
+            <div class="col-3 offset-5">
+                <a asp-controller="Account" asp-action="Register" class="btn-secondary text-center text-decoration-none form-control">Admin Registration</a>    
+            </div>
+        }
+        <br />
+    </div>
+
+    <div id="calendar"></div>
+</div>
+
+<partial name="_AddEditAppointment" />
+
+<div class="text-right">
+    <p>@httpContextAccessor.HttpContext.Session.GetString("userName") 's account is logged in.</p>
+</div>
